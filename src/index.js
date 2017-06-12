@@ -1,5 +1,7 @@
 import {plugin} from 'postcss';
 
+let options = {};
+
 function noop () {}
 
 function trimValue (value) {
@@ -84,8 +86,9 @@ function dedupeRule (last, nodes) {
                 }
             });
 
-            if (empty(node)) {
-                node.remove();
+            const targetNode = options.reverseRemoval ? last : node;
+            if (empty(targetNode)) {
+                targetNode.remove();
             }
         }
     }
@@ -98,8 +101,9 @@ function dedupeNode (last, nodes) {
 
     while (index >= 0) {
         const node = nodes[index--];
+        const targetNode = options.reverseRemoval ? last : node;
         if (node && equals(node, last)) {
-            node.remove();
+            targetNode.remove();
         }
     }
 }
@@ -129,4 +133,9 @@ function dedupe (root) {
     }
 }
 
-export default plugin('postcss-discard-duplicates', () => dedupe);
+function discardDuplicates (opts) {
+    options = opts || options;
+    return dedupe;
+}
+
+export default plugin('postcss-discard-duplicates', discardDuplicates);

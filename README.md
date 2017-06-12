@@ -56,6 +56,55 @@ h1 {
 See the [PostCSS documentation](https://github.com/postcss/postcss#usage) for
 examples for your environment.
 
+## Removal Order
+
+By default, duplicate css rules will be removed in a top down fashion:
+#### Input
+
+```css
+h1 {
+    margin: 0 auto;
+}
+h2 {
+    margin: 0 auto;
+}
+h1 {
+    margin: 0 auto;
+}
+```
+
+#### Output
+
+```css
+h2 {
+    margin: 0 auto;
+}
+h1 {
+    margin: 0 auto;
+}
+```
+
+To reverse this behavior and remove in a bottom up fashion, set the option `reverseRemoval` to `true`:
+
+```js
+postcss([
+    require('postcss-discard-duplicates')({
+        reverseRemoval: true
+    })
+])
+```
+
+#### Output
+
+```css
+h1 {
+    margin: 0 auto;
+}
+h2 {
+    margin: 0 auto;
+}
+```
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
