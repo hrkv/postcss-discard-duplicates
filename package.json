@@ -2,16 +2,16 @@
   "name": "postcss-discard-duplicates",
   "version": "2.1.0",
   "description": "Discard duplicate rules in your CSS files with PostCSS.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "files": [
-    "src",
+    "dist",
     "LICENSE-MIT"
   ],
   "scripts": {
     "contributorAdd": "all-contributors add",
     "contributorGenerate": "all-contributors generate",
     "pretest": "eslint src",
-    "prepublish": "del-cli src && babel src --out-dir src --ignore /__tests__/",
+    "prepublish": "del-cli dist && babel src --out-dir dist --ignore /__tests__/",
     "test": "ava src/__tests__",
     "test-012": "ava src/__tests__"
   },
