@@ -95,6 +95,20 @@ const tests = [{
     message: 'should preserve browser hacks (2)',
     fixture: '@media \0 all {}@media all {}',
     expected: '@media \0 all {}@media all {}',
+}, {
+    message: 'should remove duplicate rules and declarations in reverse order',
+    fixture: 'h1{color:#000}h2{color:#fff}h1{color:#000;color:#000}',
+    expected: 'h1{color:#000}h2{color:#fff}',
+    options: {
+        reverseRemoval: true,
+    },
+}, {
+    message: 'should remove partial duplicates in reverse order',
+    fixture: 'h1{color:red;background:blue}h1{color:red}',
+    expected: 'h1{color:red;background:blue}',
+    options: {
+        reverseRemoval: true,
+    },
 }];
 
 tests.forEach(test => {
